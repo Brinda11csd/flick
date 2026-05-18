@@ -12,10 +12,15 @@ pool:
 steps:
 - task: NodeTool@0
   inputs:
-    versionSpec: '18.x'
-  displayName: 'Install Node.js'
+    versionSpec: '16.x'
+  displayName: 'Use Node 16'
 
 - script: |
+    node -v
+    npm cache clean --force
+    rm -rf node_modules
+    rm -f package-lock.json
     npm install
+    export NODE_OPTIONS=--openssl-legacy-provider
     npm run build
   displayName: 'npm install and build'
